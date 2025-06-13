@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rock Paper Scissors</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+        <h1>Rock Paper Scissors</h1>
+  <p>Choose your move:</p>
+  <div class="buttons">
+  <button  onclick="play('rock')" class="circle">✊</button>
+  <button onclick="play('paper')" class="circle">✋</button>
+  <button onclick="play('scissors')" class="circle">✌️</button>
+</div>
+  <div id="result"></div>
+
+  <script>
+    function play(playerMove) {
+      const moves = ['rock', 'paper', 'scissors'];
+      const computerMove = moves[Math.floor(Math.random() * moves.length)];
+      let result;
+
+      if (playerMove === computerMove) {
+        result = "It's a tie!";
+      } else if (
+        (playerMove === 'rock' && computerMove === 'scissors') ||
+        (playerMove === 'paper' && computerMove === 'rock') ||
+        (playerMove === 'scissors' && computerMove === 'paper')
+      ) {
+        result = `You win! ${playerMove} beats ${computerMove}.`;
+      } else {
+        result = `You lose! ${computerMove} beats ${playerMove}.`;
+      }
+
+      document.getElementById('result').innerText = result;
+    }
+  </script>
+</body>
+</html>
