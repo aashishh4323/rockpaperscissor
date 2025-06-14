@@ -7,16 +7,24 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-        <h1>Rock Paper Scissors</h1>
+  <h1>Rock Paper Scissors</h1>
   <p>Choose your move:</p>
   <div class="buttons">
-  <button  onclick="play('rock')" class="circle">✊</button>
-  <button onclick="play('paper')" class="circle">✋</button>
-  <button onclick="play('scissors')" class="circle">✌️</button>
-</div>
+    <button onclick="play('rock')" class="circle">✊</button>
+    <button onclick="play('paper')" class="circle">✋</button>
+    <button onclick="play('scissors')" class="circle">✌️</button>
+  </div>
+  
   <div id="result"></div>
-
+  <div id="score"></div>
+  <button onclick="resetScore()">Reset Score</button>
   <script>
+    const score = {
+      player: 0,
+      computer: 0,
+      ties: 0
+    };
+
     function play(playerMove) {
       const moves = ['rock', 'paper', 'scissors'];
       const computerMove = moves[Math.floor(Math.random() * moves.length)];
@@ -24,18 +32,37 @@
 
       if (playerMove === computerMove) {
         result = "It's a tie!";
+        score.ties++;
       } else if (
         (playerMove === 'rock' && computerMove === 'scissors') ||
         (playerMove === 'paper' && computerMove === 'rock') ||
         (playerMove === 'scissors' && computerMove === 'paper')
       ) {
         result = `You win! ${playerMove} beats ${computerMove}.`;
+        score.player++;
       } else {
         result = `You lose! ${computerMove} beats ${playerMove}.`;
+        score.computer++;
       }
 
       document.getElementById('result').innerText = result;
+      updateScore();
     }
+
+    function updateScore() {
+      document.getElementById('score').innerText = 
+        `Player: ${score.player} - Computer: ${score.computer} - Ties: ${score.ties}`;
+    }
+
+    function resetScore() {
+      score.player = 0;
+      score.computer = 0;
+      score.ties = 0;
+      updateScore();
+    }
+
+   
+    updateScore();
   </script>
 </body>
 </html>
